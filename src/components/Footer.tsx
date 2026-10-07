@@ -4,10 +4,9 @@ import FooterIcon from "@/assets/SVG.png";
 
 const Footer = () => {
     return (
-        <footer className="bg-black text-gray-400 py-6 px-8 border-t border-neutral-900">
+        <footer className="bg-black text-gray-400 py-12 px-8 border-t border-neutral-900">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
                 
-                {/* বাম পাশের লোগো এবং নাম */}
                 <div className="flex items-center gap-3">
                     <div className="w-6 h-6 relative flex items-center justify-center">
                         <Image 
@@ -21,7 +20,6 @@ const Footer = () => {
                     <h2 className="text-white font-bold tracking-wider text-lg">FITLOG</h2>
                 </div>
 
-                {/* ডান পাশের কপিরাইট টেক্সট */}
                 <div>
                     <p className="text-sm text-gray-500">
                         © 2026 FitLog — Workout Library. Train hard, log honest.
