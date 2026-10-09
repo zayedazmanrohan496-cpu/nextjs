@@ -1,29 +1,46 @@
+'use client';
+
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Logo from '@/assets/logo.png';
 
 const Navbar = () => {
+    const pathname = usePathname();
+
+    const isWorkoutsActive = pathname === '/';
+    const isPlanActive = pathname === '/plans';
+
     return (
         <div className="bg-black text-white w-full">
             <nav className="w-full max-w-7xl mx-auto px-6 flex justify-between items-center py-4">
 
-                <div className="flex items-center gap-3">
+                <Link href="/" className="flex items-center gap-3">
                     <Image src={Logo} alt="FITLOG Logo" />
                     <span className="font-bold tracking-wider text-base">FITLOG</span>
-                </div>
+                </Link>
 
                 <div className="flex items-center gap-2">
-                    <a 
-                        href="#" 
-                        className="px-5 py-2 rounded-full bg-[#1c240d] text-[#b4ff00] text-sm font-medium"
+                    <Link 
+                        href="/" 
+                        className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+                            isWorkoutsActive 
+                                ? "bg-[#1c240d] text-[#b4ff00]" 
+                                : "text-zinc-500 hover:text-white"
+                        }`}
                     >
                         Workouts
-                    </a>
-                    <a 
-                        href="#" 
-                        className="px-5 py-2 text-zinc-500 text-sm font-medium"
+                    </Link>
+                    <Link 
+                        href="/plans" 
+                        className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+                            isPlanActive 
+                                ? "bg-[#1c240d] text-[#b4ff00]" 
+                                : "text-zinc-500 hover:text-white"
+                        }`}
                     >
                         My Plan
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="flex items-center gap-6 text-sm">
@@ -44,11 +61,9 @@ const Navbar = () => {
 
             </nav>
 
-          
             <div className="w-full border-b border-zinc-900"></div>
         </div>
     );
 };
 
-export default Navbar;
-
+export default Navbar;  
