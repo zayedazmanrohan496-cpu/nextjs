@@ -4,9 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from '@/assets/logo.png';
+import { usePlan } from '@/context/PlanContext';
 
 const Navbar = () => {
     const pathname = usePathname();
+    const { todaysPlan, savedPlan } = usePlan();
 
     const isWorkoutsActive = pathname === '/';
     const isPlanActive = pathname === '/plans';
@@ -47,14 +49,14 @@ const Navbar = () => {
                     <div className="flex items-center gap-2">
                         <span className="text-zinc-300">Plan</span>
                         <span className="w-6 h-6 rounded-full bg-[#b4ff00] text-black font-bold flex items-center justify-center text-xs">
-                            0
+                            {todaysPlan.length}
                         </span>
                     </div>
 
                     <div className="flex items-center gap-2">
                         <span className="text-zinc-300">Saved</span>
-                        <span className="w-6 h-6 rounded-full border border-zinc-800 text-zinc-500 font-bold flex items-center justify-center text-xs">
-                            0
+                        <span className="w-6 h-6 rounded-full border border-zinc-800 text-zinc-300 font-bold flex items-center justify-center text-xs">
+                            {savedPlan.length}
                         </span>
                     </div>
                 </div>
@@ -66,4 +68,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;  
+export default Navbar;
