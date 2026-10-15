@@ -125,7 +125,7 @@ const PlansPage = () => {
                   </div>
 
                   <div>
-                    <h4 className="font-extrabold text-white text-lg tracking-wide uppercase">
+                    <h4 className="font-extrabold text-[#ffffff] text-lg tracking-wide uppercase">
                       {item.name}
                     </h4>
                     <p className="text-xs text-zinc-400 font-medium mb-3">
@@ -149,9 +149,12 @@ const PlansPage = () => {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <button className="px-4 py-2 bg-[#1c212b] hover:bg-[#252c39] border border-zinc-700/60 rounded-xl text-xs font-semibold text-zinc-200">
+                  <Link
+                    href={`/plans/${item.name.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="px-4 py-2 bg-[#1c212b] hover:bg-[#252c39] border border-zinc-700/60 rounded-xl text-xs font-semibold text-zinc-200"
+                  >
                     View Details
-                  </button>
+                  </Link>
 
                   {activeTab === "today" && (
                     <button
@@ -169,7 +172,7 @@ const PlansPage = () => {
 
                   <button
                     onClick={() => handleRemove(item.id)}
-                    className="p-2 text-zinc-500 hover:text-zinc-300 transition-colors"
+                    className="p-2 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
                   >
                     <X className="w-5 h-5" />
                   </button>

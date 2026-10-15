@@ -3,6 +3,7 @@ import { getCard } from '@/lib/plan';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import PlanActions from '@/components/PlanActions';
 
 interface ICardProps {
     params: Promise<{
@@ -13,7 +14,6 @@ interface ICardProps {
 const PlanDetails = async ({ params }: ICardProps) => {
     const { slug } = await params; 
     
-  
     const data: ICard[] = await getCard();
     
     const currentPlan = data.find(
@@ -36,7 +36,7 @@ const PlanDetails = async ({ params }: ICardProps) => {
         <div className='bg-[#0b0c0e] min-h-screen text-white py-12 px-6 flex items-center justify-center'>
             <div className='w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-10 items-start'>
                 
-                {/* Left Side: Large Rounded Image */}
+                {/* Left Side: Image */}
                 <div className='relative w-full aspect-square rounded-3xl overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl'>
                     <Image 
                         src={currentPlan.image} 
@@ -50,7 +50,6 @@ const PlanDetails = async ({ params }: ICardProps) => {
                 {/* Right Side: Details Information */}
                 <div className='flex flex-col justify-between h-full space-y-6'>
                     <div>
-                        {/* Title & Description */}
                         <h1 className='text-4xl md:text-5xl font-black uppercase tracking-wide text-white mb-3'>
                             {currentPlan.name}
                         </h1>
@@ -58,7 +57,6 @@ const PlanDetails = async ({ params }: ICardProps) => {
                             {currentPlan.description}
                         </p>
 
-                        {/* Muscle Group Tags */}
                         <div className='flex flex-wrap gap-2 mb-8'>
                             {currentPlan.muscleGroups.map((muscle: string, i: number) => (
                                 <span 
@@ -70,7 +68,6 @@ const PlanDetails = async ({ params }: ICardProps) => {
                             ))}
                         </div>
 
-                        {/* Stats Table Section */}
                         <div className='bg-[#121418] border border-neutral-800/80 rounded-2xl overflow-hidden mb-8'>
                             <div className='divide-y divide-neutral-800/60 text-sm'>
                                 <div className='flex justify-between items-center py-3.5 px-5'>
@@ -104,7 +101,6 @@ const PlanDetails = async ({ params }: ICardProps) => {
                             </div>
                         </div>
 
-                        {/* Instructions */}
                         <div className='mb-8'>
                             <h3 className='text-white text-lg font-bold uppercase tracking-wider mb-4'>
                                 Instructions
@@ -119,15 +115,8 @@ const PlanDetails = async ({ params }: ICardProps) => {
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
-                    <div className='flex flex-wrap sm:flex-nowrap gap-4 pt-2'>
-                        <button className='flex-1 bg-[#ccff00] text-black font-extrabold py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2 hover:bg-lime-400 transition cursor-pointer text-sm tracking-wide'>
-                            <span>📅</span> Add to today's plan
-                        </button>
-                        <button className='border border-neutral-700 bg-neutral-900/40 text-neutral-200 font-semibold py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2 hover:bg-neutral-800 transition cursor-pointer text-sm tracking-wide'>
-                            <span>🔖</span> Save for later
-                        </button>
-                    </div>
+                    {/* Dynamic Client Actions */}
+                    <PlanActions plan={currentPlan} />
 
                 </div>
 
@@ -137,3 +126,4 @@ const PlanDetails = async ({ params }: ICardProps) => {
 };
 
 export default PlanDetails;
+
