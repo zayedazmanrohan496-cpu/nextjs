@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock, Flame, Star, X, ChevronDown, Check } from "lucide-react";
 import { usePlan } from "@/context/PlanContext";
+import { toast } from "react-toastify";
 
 type SortOption = "duration" | "calories" | "rating";
 
@@ -41,11 +42,21 @@ const PlansPage = () => {
     );
   };
 
-  const handleRemove = (id: number) => {
+  const handleRemove = (id: number, name: string) => {
     if (activeTab === "today") {
       removeFromPlan(id);
+      toast.error(`"${name}" removed from today's plan`, {
+        position: "top-right",
+        autoClose: 2500,
+        theme: "light",
+      });
     } else {
       removeFromSaved(id);
+      toast.error(`"${name}" removed from saved list`, {
+        position: "top-right",
+        autoClose: 2500,
+        theme: "light",
+      });
     }
   };
 
@@ -227,7 +238,7 @@ const PlansPage = () => {
                   )}
 
                   <button
-                    onClick={() => handleRemove(item.id)}
+                    onClick={() => handleRemove(item.id, item.name)}
                     className="p-2 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
                     aria-label="Remove item"
                   >
