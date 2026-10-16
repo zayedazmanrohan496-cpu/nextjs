@@ -6,12 +6,30 @@ import Link from "next/link";
 import { Clock, Flame, Star, X, ChevronDown, Check } from "lucide-react";
 import { usePlan } from "@/context/PlanContext";
 
+type SortOption = "duration" | "calories" | "rating";
+
 const PlansPage = () => {
   const { todaysPlan, savedPlan, removeFromPlan, removeFromSaved } = usePlan();
   const [activeTab, setActiveTab] = useState<"today" | "saved">("today");
   const [completedIds, setCompletedIds] = useState<number[]>([]);
+  const [sortBy, setSortBy] = useState<SortOption>("duration");
+  const [isSortOpen, setIsSortOpen] = useState(false);
 
-  const currentList = activeTab === "today" ? todaysPlan : savedPlan;
+  const rawList = activeTab === "today" ? todaysPlan : savedPlan;
+
+  // Dynamic Sorting Logic based on selected option
+  const currentList = [...rawList].sort((a, b) => {
+    if (sortBy === "duration") {
+      return b.duration - a.duration;
+    }
+    if (sortBy === "calories") {
+      return b.caloriesBurned - a.caloriesBurned;
+    }
+    if (sortBy === "rating") {
+      return b.rating - a.rating;
+    }
+    return 0;
+  });
 
   const totalExercises = currentList.length;
   const totalMinutes = currentList.reduce((acc, item) => acc + item.duration, 0);
@@ -29,6 +47,12 @@ const PlansPage = () => {
     } else {
       removeFromSaved(id);
     }
+  };
+
+  const sortLabels: Record<SortOption, string> = {
+    duration: "Duration",
+    calories: "Calories",
+    rating: "Rating",
   };
 
   return (
@@ -60,7 +84,7 @@ const PlansPage = () => {
       </div>
 
       {/* Tabs and Sort Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6 relative">
         <div className="bg-[#13161c] p-1 rounded-xl border border-zinc-800/80 flex sm:inline-flex">
           <button
             onClick={() => setActiveTab("today")}
@@ -84,12 +108,38 @@ const PlansPage = () => {
           </button>
         </div>
 
-        <div className="flex items-center justify-between sm:justify-end gap-2 text-xs sm:text-sm">
+        {/* Dynamic Sort Dropdown */}
+        <div className="relative flex items-center justify-between sm:justify-end gap-2 text-xs sm:text-sm">
           <span className="text-zinc-400 font-medium">Sort By</span>
-          <button className="bg-[#13161c] border border-zinc-800 text-white px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm flex items-center gap-2">
-            <span>Duration</span>
-            <ChevronDown className="w-4 h-4 text-zinc-400" />
-          </button>
+          
+          <div className="relative">
+            <button
+              onClick={() => setIsSortOpen((prev) => !prev)}
+              className="bg-[#13161c] border border-zinc-800 text-white px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm flex items-center gap-2 cursor-pointer hover:border-zinc-700 transition"
+            >
+              <span>{sortLabels[sortBy]}</span>
+              <ChevronDown className={`w-4 h-4 text-zinc-400 transition-transform ${isSortOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {isSortOpen && (
+              <div className="absolute right-0 mt-2 w-36 bg-[#13161c] border border-zinc-800 rounded-xl shadow-xl z-20 py-1">
+                {(["duration", "calories", "rating"] as SortOption[]).map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => {
+                      setSortBy(option);
+                      setIsSortOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-2 text-xs sm:text-sm transition hover:bg-[#1e232d] ${
+                      sortBy === option ? "text-[#b4ff00] font-bold" : "text-zinc-300"
+                    }`}
+                  >
+                    {sortLabels[option]}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
