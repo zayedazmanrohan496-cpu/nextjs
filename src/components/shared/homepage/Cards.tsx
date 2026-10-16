@@ -8,17 +8,21 @@ const Cards = async () => {
     const data: ICard[] = await getCard();
 
     return (
-        <div className='bg-black min-h-screen py-10 px-4'>
+        <div id="workouts" className='bg-black min-h-screen py-10 px-4 sm:px-6 md:px-8'>
             <div className='w-full max-w-7xl mx-auto'>
-                <div className='mb-8'>
-                    <h2 className='text-white font-bold text-5xl'>THE LIBRARY</h2>
-                    <p className='text-[#9CA3AF] ml-2 mt-1'>Twelve lifts covering every major muscle group.</p>
+                {/* Heading & Sub-heading (Responsive) */}
+                <div className='mb-8 text-left'>
+                    <h2 className='text-white font-extrabold text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight'>
+                        THE LIBRARY
+                    </h2>
+                    <p className='text-[#9CA3AF] text-sm sm:text-base mt-1.5 font-medium'>
+                        Twelve lifts covering every major muscle group.
+                    </p>
                 </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ml-2'>
+                {/* Cards Grid */}
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                     {data.map((app: ICard, ind: number) => {
-                    
-                    
                         const slug = app.name.toLowerCase().replace(/\s+/g, '-');
 
                         return (

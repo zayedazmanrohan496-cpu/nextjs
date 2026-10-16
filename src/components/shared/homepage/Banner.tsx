@@ -5,10 +5,10 @@ import Image from 'next/image';
 const Banner = () => {
     return (
         <section className="bg-black min-h-[85vh] flex items-center justify-center p-4 md:p-8 font-sans">
-            <div className="w-full max-w-[92rem] bg-[#141721] border border-[#212636] rounded-2xl py-8 px-8 md:py-12 md:px-16 lg:py-16 lg:px-20 flex flex-col md:flex-row items-center justify-between relative overflow-hidden shadow-2xl">
+            <div className="w-full max-w-[92rem] bg-[#141721] border border-[#212636] rounded-2xl py-8 px-6 sm:px-8 md:py-12 md:px-16 lg:py-16 lg:px-20 flex flex-col md:flex-row items-center justify-between relative overflow-hidden shadow-2xl gap-8 md:gap-0">
                 
                 {/* Left Content */}
-                <div className="max-w-2xl z-10 mb-8 md:mb-0">
+                <div className="max-w-2xl z-10 mb-8 md:mb-0 text-center md:text-left flex flex-col items-center md:items-start">
                     <h3 className="text-[#ccff00] text-xs md:text-sm font-bold tracking-widest uppercase mb-3">
                         WORKOUT LIBRARY
                     </h3>
@@ -27,11 +27,11 @@ const Banner = () => {
                 </div>
 
                 {/* Right Image Content */}
-                <div className="z-10 flex justify-center items-center">
+                <div className="z-10 flex justify-center items-center w-full md:w-auto">
                     <Image 
                         src={BannerImage} 
                         alt="Workout Library Banner" 
-                        className="w-72 md:w-[400px] lg:w-[480px] object-contain drop-shadow-2xl"
+                        className="w-64 sm:w-72 md:w-[400px] lg:w-[480px] h-auto object-contain drop-shadow-2xl"
                         priority
                     />
                 </div>
