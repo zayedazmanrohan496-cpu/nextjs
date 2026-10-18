@@ -20,7 +20,6 @@ const Navbar = () => {
         <div className="bg-black text-white w-full">
             <nav className="w-full max-w-7xl mx-auto px-6 flex justify-between items-center py-4">
 
-                {/* Logo (আগের মতোই রাখা হয়েছে) */}
                 <Link href="/" className="flex items-center gap-3">
                     <Image src={Logo} alt="FITLOG Logo" />
                     <span className="font-bold tracking-wider text-base">FITLOG</span>
@@ -73,7 +72,6 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-                {/* Mobile Menu & Counters (শুধু মোবাইলের জন্য) */}
                 <div className="flex md:hidden items-center gap-4">
                     <Link href="/plans" className="flex items-center gap-1.5 text-xs">
                         <span className="text-zinc-300">Plan</span>
